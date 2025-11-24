@@ -26,10 +26,7 @@ const LibroSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    creadoEn: {
-        type: Date,
-        default: Date.now
-    }
+    
 });
 
 module.exports = mongoose.model('Libro', LibroSchema);

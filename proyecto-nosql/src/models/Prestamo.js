@@ -30,9 +30,8 @@ const PrestamoSchema = new mongoose.Schema({
     observaciones: {
         type: String
     }
-});
+}, { collection: 'Prestamos' });
 
-// Método para calcular días de retraso
 PrestamoSchema.methods.diasRetraso = function() {
     if (this.estado === 'Devuelto') return 0;
     const hoy = new Date();

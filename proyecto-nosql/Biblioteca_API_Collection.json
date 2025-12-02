@@ -1,0 +1,358 @@
+{
+    "info": {
+        "name": "Biblioteca API - CRUD Completo",
+        "_postman_id": "biblioteca-api-2024",
+        "description": "Colección completa para probar la API de gestión de biblioteca",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+        "key": "base_url",
+        "value": "http://localhost:3000/api",
+        "type": "string"
+        },
+        {
+        "key": "libro_id",
+        "value": "",
+        "type": "string"
+        },
+        {
+        "key": "usuario_id",
+        "value": "",
+        "type": "string"
+        },
+        {
+        "key": "prestamo_id",
+        "value": "",
+        "type": "string"
+        }
+    ],
+    "item": [
+        {
+        "name": "00 - Health Check",
+        "item": [
+            {
+            "name": "Verificar API",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}",
+                "host": ["{{base_url}}"]
+                }
+            },
+            "response": []
+            }
+        ]
+        },
+        {
+        "name": "01 - Libros",
+        "item": [
+            {
+            "name": "Crear Libro",
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "if (pm.response.code === 201) {",
+                    "    const jsonData = pm.response.json();",
+                    "    pm.collectionVariables.set('libro_id', jsonData._id);",
+                    "    pm.test('Libro creado exitosamente', function () {",
+                    "        pm.response.to.have.status(201);",
+                    "    });",
+                    "}"
+                    ],
+                    "type": "text/javascript"
+                }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"titulo\": \"Cien Años de Soledad\",\n    \"autor\": \"Gabriel García Márquez\",\n    \"isbn\": \"978-0307474728\",\n    \"editorial\": \"Editorial Sudamericana\",\n    \"anioPublicacion\": 1967,\n    \"genero\": \"Realismo mágico\",\n    \"numeroPaginas\": 417,\n    \"copias\": 3\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/libros",
+                "host": ["{{base_url}}"],
+                "path": ["libros"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Todos los Libros",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/libros",
+                "host": ["{{base_url}}"],
+                "path": ["libros"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Libro por ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/libros/{{libro_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["libros", "{{libro_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Actualizar Libro",
+            "request": {
+                "method": "PUT",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"copias\": 5,\n    \"numeroPaginas\": 420\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/libros/{{libro_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["libros", "{{libro_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Eliminar Libro",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/libros/{{libro_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["libros", "{{libro_id}}"]
+                }
+            },
+            "response": []
+            }
+        ]
+        },
+        {
+        "name": "02 - Usuarios",
+        "item": [
+            {
+            "name": "Crear Usuario",
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "if (pm.response.code === 201) {",
+                    "    const jsonData = pm.response.json();",
+                    "    pm.collectionVariables.set('usuario_id', jsonData._id);",
+                    "}"
+                    ],
+                    "type": "text/javascript"
+                }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"email\": \"juan.perez@email.com\",\n    \"telefono\": \"+57 300 123 4567\",\n    \"direccion\": \"Calle 123 #45-67\",\n    \"fechaNacimiento\": \"1990-05-15\"\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/usuarios",
+                "host": ["{{base_url}}"],
+                "path": ["usuarios"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Todos los Usuarios",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/usuarios",
+                "host": ["{{base_url}}"],
+                "path": ["usuarios"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Usuario por ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/usuarios/{{usuario_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["usuarios", "{{usuario_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Actualizar Usuario",
+            "request": {
+                "method": "PUT",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"telefono\": \"+57 300 999 8888\",\n    \"direccion\": \"Nueva Dirección 789\"\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/usuarios/{{usuario_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["usuarios", "{{usuario_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Eliminar Usuario",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/usuarios/{{usuario_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["usuarios", "{{usuario_id}}"]
+                }
+            },
+            "response": []
+            }
+        ]
+        },
+        {
+        "name": "03 - Préstamos",
+        "item": [
+            {
+            "name": "Crear Préstamo",
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "if (pm.response.code === 201) {",
+                    "    const jsonData = pm.response.json();",
+                    "    pm.collectionVariables.set('prestamo_id', jsonData._id);",
+                    "}"
+                    ],
+                    "type": "text/javascript"
+                }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"usuarioId\": \"{{usuario_id}}\",\n    \"libroId\": \"{{libro_id}}\",\n    \"fechaPrestamo\": \"2024-11-28\",\n    \"fechaDevolucionEsperada\": \"2024-12-12\"\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/prestamos",
+                "host": ["{{base_url}}"],
+                "path": ["prestamos"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Todos los Préstamos",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/prestamos",
+                "host": ["{{base_url}}"],
+                "path": ["prestamos"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Obtener Préstamo por ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/prestamos/{{prestamo_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["prestamos", "{{prestamo_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Devolver Libro",
+            "request": {
+                "method": "PUT",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\n    \"estado\": \"devuelto\",\n    \"fechaDevolucionReal\": \"2024-12-05\"\n}"
+                },
+                "url": {
+                "raw": "{{base_url}}/prestamos/{{prestamo_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["prestamos", "{{prestamo_id}}"]
+                }
+            },
+            "response": []
+            },
+            {
+            "name": "Eliminar Préstamo",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                "raw": "{{base_url}}/prestamos/{{prestamo_id}}",
+                "host": ["{{base_url}}"],
+                "path": ["prestamos", "{{prestamo_id}}"]
+                }
+            },
+            "response": []
+            }
+        ]
+        }
+    ]
+}
